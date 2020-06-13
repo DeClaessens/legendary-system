@@ -1,13 +1,9 @@
-var express = require('express')
+var express = require('express');
+const RoomsController = require('../controllers/RoomsController');
 var router = express.Router()
 
-router.get('/', (req, res) => {
-  res.send(['Room 1', 'Room 2', 'Room 3']);
-})
-
-router.post('/create', (req, res) => {
-  //controller
-  res.send(['Room 3']);
-})
+router.get('/', RoomsController.get)
+router.post('/create', RoomsController.create);
+router.post('/join', RoomsController.join);
 
 module.exports = router;

@@ -1,8 +1,20 @@
-var express = require('express')
-var router = express.Router()
+var express = require('express');
+const routeValidator = require('../middleware/routeValidator');
 const UserController = require('../controllers/UserController');
+const Joi = require('joi');
+var router = express.Router();
 
-router.post('/register', UserController.register);
-router.post('/login', UserController.login);
+const registerSchema = Joi.object().keys({
+  email: Joi.string().email().required(),
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});
+router.post('/register', routeValidator(registerSchema), UserController.register);
+
+const loginSchema = Joi.object().keys({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+router.post('/login', routeValidator(loginSchema), UserController.login);
 
 module.exports = router;

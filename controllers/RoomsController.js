@@ -14,8 +14,6 @@ const create = async (req, res) => {
     name: req.body.name,
   });
 
-  console.log({newRoom});
-
   newRoom.save().then((room) => {
     res.send(200, room);
   })
